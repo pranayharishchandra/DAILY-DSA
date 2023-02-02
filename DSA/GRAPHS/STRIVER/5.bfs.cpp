@@ -7,7 +7,7 @@ public:
     // Function to return Breadth First Traversal of given graph.
     vector<int> bfsOfGraph(int V, vector<int> adj[])
     {
-        vector<int> bfs(V);
+        vector<int> bfs;
 
         int visited[V] = {0};
         queue<int> q;
