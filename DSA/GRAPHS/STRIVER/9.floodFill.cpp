@@ -21,6 +21,8 @@ private:
             // then check for same initial color and unvisited pixel
             if (nrow >= 0 && nrow < n && ncol >= 0 && ncol < m)
             {
+                /* CHECK CONNECTED --> IT CONNECTED THEN --> CHECK FOR VISITED */
+                
                 // image[nrow][ncol] == iniColor --> to check connected components
                 // ans[nrow][ncol] != newColor   --> to check visited
                 //                               --> if the [nrow][ncol] already visited then it will be new colored else it will be old colored
