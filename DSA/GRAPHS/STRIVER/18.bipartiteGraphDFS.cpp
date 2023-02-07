@@ -1,7 +1,9 @@
+// V is the paremater you don't need to write for the check function
+
 class Solutoion1
 {
 private:
-    // DFS SOL1           WITH using currCle paremeter-------VVVVVVV
+    // DFS SOL1                 WITH using currClr paremeter-------VVVVVVV
     bool check(int src, int V, vector<int> adj[], int color[], int currClr)
     {
         // mark visited and work
@@ -20,8 +22,6 @@ private:
             }
             // if already visited the check -- the color should not be same
             else if (color[src] == color[nbr]) return false;
-
-            
         }
 
         return true; // if color[src] == color[nbr] was never found -- bipertite graph
@@ -96,7 +96,6 @@ public:
         int color[V] = {-1};
 
         for (int i = 0; i < V; i++) color[i] = -1;
-        
 
         for (int i = 0; i < V; i++)
         {
