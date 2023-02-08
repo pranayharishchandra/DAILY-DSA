@@ -22,10 +22,12 @@ private:
             {
                 if (check(nbr, adj, vis, pathVis) == true)
                     return true; // even if you get a single cycle -- means whole graph is cyclic
+                                 /* we stops immediately n returns back to parent call and we don't check for the other nbr -- and they remains unvisited
+                                    since they are unvisited -- we can call them from the isCyclic() function to check they have any cycle or not */
             }
             // if the nbr was already visited -- then just check when it was visited -- during this path or while exploring some other path
 
-            // VVVVVVVVVVVVVVVVVVVVVVVVVVV YOU EITHE OF THE 2 CONDITIONS -- BOTH ARE CORRECT
+            // VVVVVVVVVVVVVVVVVVVVVVVVVVV USE EITHER OF THE 2 CONDITIONS -- BOTH ARE CORRECT
             // else if (pathVis[nbr] == 1) // condition 1
             else if (vis[nbr] == 2)        // condition 2
                 return true;
@@ -36,6 +38,7 @@ private:
         // FOR THAT EITHER YOU CAN USE ONE VIS ARRAY AND PATH VISITED ARRAY
         // OR YOU CAN DO USE 2 WHEN VISITING THE PATH -- AND FOR UNVISITED YOU CAN DO VIS[SRC] = 1 -- STILL IT'S VISITED BUT NOT PATH VISITED
 
+        // === POST ORDER === ( when curr src is not part of any cycle ) == ( executed only when return true will not get executed )
         vis[src] = 1;
         pathVis[src] = -1;
 
