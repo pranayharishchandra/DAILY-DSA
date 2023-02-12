@@ -1,8 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-// idk why it's giving me run time error when using a function to find priority 
-
 class Solution
 {
 
