@@ -55,6 +55,10 @@ public:
                         {
                             dis[nbrx][nbry] = srcWt + edgeWt;
                             pq.push({dis[nbrx][nbry], {nbrx, nbry}});
+                            
+                            // for optimisation write following
+                            if (nbrx == destination.first && nbry == destination.second)
+                                return dis[nbrx][nbry];
                         }
                     }
                 }
