@@ -24,7 +24,7 @@ public:
 
             int wt     = it.first;
             int src    = it.second.first;
-            int parent = it.second.first;
+            int parent = it.second.second;
 
             if (vis[src] == 1) continue;     // if already visited
             else               vis[src] = 1; // mark it as visited
