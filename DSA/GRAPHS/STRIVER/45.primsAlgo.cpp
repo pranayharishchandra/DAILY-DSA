@@ -30,7 +30,7 @@ public:
             else               vis[src] = 1; // mark it as visited
 
             sum += wt;
-            if (flag == true) {
+            if (flag == false) {
                 flag = true;
                 // continue;                  // since we have to add it's nbrs as well
             }
