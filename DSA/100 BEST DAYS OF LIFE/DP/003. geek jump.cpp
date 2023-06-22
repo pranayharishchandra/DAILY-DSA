@@ -29,13 +29,14 @@ class Solution {
 
     int tab(vector<int>& height, int n, vector<int> &dp)
     {
+        dp[0] = 0;
         // n -> i
-        for (int i = 0; i < n; i++)
+        for (int i = 1; i < n; i++)
         {
-            if (i == 0){
-                dp[i] = 0;
-                continue;
-            }
+            // if (i == 0){
+            //     dp[i] = 0;
+            //     continue;
+            // }
 
             int left  = abs(height[i] - height[i - 1]) + dp[i - 1];
             
@@ -49,6 +50,32 @@ class Solution {
         
     }
 
+    // tab == space opt
+    int tabSpOpt(vector<int>& height, int n)
+    {
+        int prev2;
+        int prev1 = 0;
+        int curr = 0;
+
+        // n -> i
+        for (int i = 1; i < n; i++)
+        {
+
+            int left  = abs(height[i] - height[i - 1]) + prev1;
+            
+            int right = INT_MAX;
+            if (i >= 2)
+                right = abs(height[i] - height[i - 2]) + prev2;
+
+            curr = min (left, right);
+
+            prev2 = prev1;
+            prev1 = curr;
+        }
+        return curr;
+        
+    }
+
 public:
     int minimumEnergy(vector<int>& height, int n) {
         
@@ -58,7 +85,10 @@ public:
         // int ans = memo(height, n - 1, dp);
 
         // tab
-        int ans = tab(height,n, dp);
+        // int ans = tab(height,n, dp);
+
+        // tab -- sp opt
+        int ans = tabSpOpt(height, n);
         return ans;
     }
 
