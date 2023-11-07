@@ -87,3 +87,53 @@ public:
         return ans;
     }
 };
+
+
+
+
+
+======================================================================================================================================================
+
+// 3 sum -- optimal — WRONG SOLTION — CORNER CASES NOT HANDLED
+// TAKING 4 VARIABLES - top, left, bottom, right IS BETTER FOR CODE QUALITY
+// RATHER THAN JUST TAKING 1 VARIABLE - cnt
+#include <vector>
+
+using namespace std;
+
+class Solution {
+public:
+    vector<int> spiralOrder(vector<vector<int>>& matrix) {
+        vector<int> ans;
+
+        int cnt = 0;
+        int n = matrix.size();
+        int m = matrix[0].size();
+
+        while (cnt <= ceil((float) n/2) || cnt <= ceil((float) m/2)) {
+
+            // 1 traversing over top row
+            for (int col = cnt; col < m-cnt; col++) {
+                ans.push_back(matrix[cnt][col]);
+            }
+            
+            // 2 traversing left col
+            for (int row = cnt+1; row < n-cnt-1; row++) {
+                ans.push_back(matrix[row][m-1-cnt]);
+            }
+            
+            // 3 traversing over bottom row
+            for (int col = (m-1)-cnt; col >= cnt; col--) {
+                ans.push_back(matrix[n-1- cnt][col]);
+            }
+            
+            // 4 traversing over right col
+            for (int row = (n-1)-cnt-1; row >= cnt+1; row--) {
+                ans.push_back(matrix[row][cnt]);
+            }
+
+            cnt++;
+        }
+        return ans;
+    }
+};
