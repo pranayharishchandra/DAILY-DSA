@@ -40,6 +40,25 @@ public:
 /*
 APPROCH 2
 DNF
+3 pointers
+
+
+MAIN HINTS TO SOLVE THIS QUESTION
+=> 0 -> j-1 : sorted
+=> sort the element j == k to it's right position
+=> j  -> k  : unknowns
+
+j  -> k  : unknowns
+
+
+==================
+0 -> i-1 : 0
+i -> j-1 : 1 
+
+j -> k : UNKNOWNS
+
+k+1 -> n-1 : 2 
+===================
 */
 
 [2,0,1]
