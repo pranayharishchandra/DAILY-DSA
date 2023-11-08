@@ -3,6 +3,7 @@ https://leetcode.com/problems/3sum/submissions/
 
 
 ==========================================================================================================================================================================
+      find tc : log(no. of unique triplets)
   3 pointer   : Time Complexity: O(N3 * log(no. of unique triplets))
   hashing     : Time Complexity: O(N2 * log(no. of unique triplets))
   2 pointer   : Time Complexity: O(N2)
