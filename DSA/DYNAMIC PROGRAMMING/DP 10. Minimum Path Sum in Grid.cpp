@@ -185,8 +185,9 @@ public:
                 if (i == 0 && j == 0)
                     temp[j] = matrix[i][j];
                 else {
-                    int up = matrix[i][j] + ((i > 0) ? prev[j] : 1e9);
+                    int up   = matrix[i][j] + ((i > 0) ? prev[j]     : 1e9);
                     int left = matrix[i][j] + ((j > 0) ? temp[j - 1] : 1e9);
+                    
                     temp[j] = min(up, left);
                 }
             }
