@@ -1,5 +1,5 @@
 /*============================================================================================================
-    APPROACH: SOLUTION - 1, 2
+    APPROACH: SOLUTION - 1, 2, 3
 
     Q1) WHY ARE WE GOING LEFT, UP when the question is telling us to go RIGHT, DOWN
     
@@ -72,7 +72,51 @@ public:
 
 };
 
+/*============================================================================================================
+    SOLUTION - 3 : MOMOIZATION - using INT_MAX 
 
+    reason we are able to use INT_MAX is because 
+    - we are not adding the matrix[i][j] with INT_MAX
+    - if we do that then "integer overflow"
+    - and then it will become some negative number
+    - and you will be doing "min(up, left)", now since they have become "negative number"
+    - they will be selected, and you will get wrong final answer
+
+    => so now i have removed the possiblity: "INT_MAX + matrix[i][j]" 
+
+============================================================================================================*/
+class Solution {
+public:
+    int minSumPathUtil(int i, int j, vector<vector<int>> &matrix, vector<vector<int>> &dp) {
+
+        if (i == 0 && j == 0)
+            return matrix[0][0]; 
+
+        if (i < 0 || j < 0)
+            // return 1e9; 
+            return INT_MAX;
+            
+        if (dp[i][j] != -1)
+            return dp[i][j]; 
+
+        int up   = minSumPathUtil(i - 1, j, matrix, dp);
+        int left = minSumPathUtil(i, j - 1, matrix, dp);
+
+
+        return dp[i][j] = matrix[i][j] + min(up, left);
+    }
+
+
+    int minPathSum( vector<vector<int>> &matrix) {
+
+        int n = matrix.size();
+        int m = matrix[0].size();
+
+        vector<vector<int>> dp(n, vector<int>(m, -1)); 
+        
+        return minSumPathUtil(n - 1, m - 1, matrix, dp); 
+    }
+};
 
 /*============================================================================================================
     SOLUTION - 2 : MOMOIZATION - smart function call 
@@ -111,7 +155,7 @@ public:
 };
 
 /*============================================================================================================
-    SOLUTION - 3 : TABULATION - (TABULIZING SOLUTION 2)
+    SOLUTION - 4 : TABULATION - (TABULIZING SOLUTION 3)
 
     here i am going from 0,0 to n-1, m-1
     because answer is not gonna change if i go from  (0,0)     to (n-1, m-1) 
@@ -130,10 +174,10 @@ public:
                     dp[i][j] = matrix[i][j];
                     
                 else {
-                    int up   = matrix[i][j] + ((i-1 >= 0) ? dp[i - 1][j] : 1e9);
-                    int left = matrix[i][j] + ((j-1 >= 0) ? dp[i][j - 1] : 1e9);
+                    int up   = ((i-1 >= 0) ? dp[i - 1][j] : 1e9);
+                    int left = ((j-1 >= 0) ? dp[i][j - 1] : 1e9);
                     
-                    dp[i][j] = min(up, left);
+                    dp[i][j] = matrix[i][j] + min(up, left);
                 }
     
         return dp[n - 1][m - 1];
@@ -141,7 +185,7 @@ public:
 };
 
 /*============================================================================================================
-    SOLUTION - 4 : TABULATION 
+    SOLUTION - 5 : TABULATION 
 
 ============================================================================================================*/
 class Solution {
@@ -172,7 +216,7 @@ public:
 };
 
 /*============================================================================================================
-    SOLUTION - 4 : TABULATION -- space optimised
+    SOLUTION - 6 : TABULATION -- space optimised
 ============================================================================================================*/
 class Solution {
 public:
@@ -185,10 +229,10 @@ public:
                 if (i == 0 && j == 0)
                     temp[j] = matrix[i][j];
                 else {
-                    int up   = matrix[i][j] + ((i > 0) ? prev[j]     : 1e9);
-                    int left = matrix[i][j] + ((j > 0) ? temp[j - 1] : 1e9);
+                    int up   =  ((i > 0) ? prev[j]     : 1e9);
+                    int left =  ((j > 0) ? temp[j - 1] : 1e9);
                     
-                    temp[j] = min(up, left);
+                    temp[j] = matrix[i][j] + min(up, left);
                 }
             }
             prev = temp;
@@ -198,7 +242,7 @@ public:
     }
 }
 /*============================================================================================================
-    SOLUTION - 5 : TABULATION -- most space optimised
+    SOLUTION - 7 : TABULATION -- most space optimised
 ============================================================================================================*/
 class Solution {
 public:
