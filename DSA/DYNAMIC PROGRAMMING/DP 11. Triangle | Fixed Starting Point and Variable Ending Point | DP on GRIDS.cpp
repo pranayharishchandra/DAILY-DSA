@@ -183,3 +183,26 @@ public:
     }
 };
 
+/*============================================================================================================
+    SOLUTION - 5 (NOT POSSIBLE) : TABULATION -- MOST SPACE OPTIMAIZATION (not possible in this question)
+                                -- the most optimal solution not possible
+                                -- like it was in the PREVIOUS PROBLEM
+                                -- because .. read below
+ 
+    In the previous question: 
+        consider a cell (i,j)
+        we are moving/considering 2 paths -- left and top, 
+        so the left of the jth col cell in that row got updated 
+        since jth cell in the 1d dp is still holds the answer for the top cell i.e. (i-1,j)
+        so the (i,j) cell can take it's left and top cells answers from the 1d dp
+        and after updating we were storing the value in jth cell of dp, and loosing the answer of 
+        (i-1,j)th cell
+
+    In this question:
+        we are moving diagonal(left + up) and left
+        so here if we update the (j-1)th cell of 1d dp
+        the the jth cell will not be able to know the answer of diagonal(left+up)
+        thus we require 2 level of dp,
+        i.e. prev_row and curr_row
+
+============================================================================================================*/
