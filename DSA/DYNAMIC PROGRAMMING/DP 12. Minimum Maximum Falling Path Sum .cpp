@@ -125,10 +125,7 @@ class Solution {
         // sc -> src col
         // top to bottom -- src to dest
         for (int j = 0; j < m; j++)
-            if (j == sc) 
-                dp[0][sc] = matrix[0][sc]; // base case
-            else  
-                dp[0][j]  = 1e9; // // not consider other src
+            dp[0][j] = matrix[0][j]; // base case
     
     
         for (int i = 1; i < n; i++) {
@@ -181,10 +178,7 @@ int getMinUtil(int sc, int n, int m, vector<vector<int>> &matrix) {
     // sc -> src col
     // top to bottom -- src to dest
     for (int j = 0; j < m; j++)
-        if (j == sc) // base case
-            prev[sc] = matrix[0][sc];
-        else 
-            prev[j]  = 1e9;
+        prev[j] = matrix[0][j];
 
     for (int i = 1; i < n; i++) {
         vector<int> curr(m);
@@ -228,8 +222,72 @@ public:
 };
 
 
+/*============================================================================================================
+    SOLUTION 5 - TABULATION (space optimised)
+
+    why the following is also working
+
+    // base case
+    for (int j = 0; j < m; j++)
+        if (j == sc) 
+            prev[sc] = matrix[0][sc];
+        else 
+            prev[j]  = 1e9;
+============================================================================================================*/
 
 
+class Solution {
+int getMinUtil(int sc, int n, int m, vector<vector<int>> &matrix) {
 
+    vector<int> prev(m);
+
+    // sc -> src col
+    // top to bottom -- src to dest
+    for (int j = 0; j < m; j++)
+        if (j == sc) // base case
+            prev[sc] = matrix[0][sc];
+        else 
+            prev[j]  = 1e9;
+
+    for (int i = 1; i < n; i++) {
+        vector<int> curr(m);
+        for (int j = 0; j < m; j++) {
+
+            int up            = prev[j];
+            int leftDiagonal  = (j-1 >= 0) ? prev[j-1] : 1e9;
+            int rightDiagonal = (j+1 <  m) ? prev[j+1] : 1e9;
+
+            curr[j] = matrix[i][j] + min(up, min(leftDiagonal, rightDiagonal));
+        }
+        prev = curr;
+    }
+
+    int mini = prev[0];
+    for (int j = 0; j < m; j++)
+        mini = min(prev[j], mini);
+
+    return mini;
+    
+}
+
+int getMinPathSum(vector<vector<int>> &matrix) {
+    int n = matrix.size();
+    int m = matrix[0].size();
+
+    int mini = INT_MAX;
+
+    for (int j = 0; j < m; j++) {
+        int ans = getMinUtil(j, n, m, matrix);
+        mini = min(mini, ans);
+    }
+
+    return mini;
+}
+
+public:
+    int minFallingPathSum(vector<vector<int>>& matrix) {
+        return getMinPathSum(matrix);
+    }
+};
 
 
