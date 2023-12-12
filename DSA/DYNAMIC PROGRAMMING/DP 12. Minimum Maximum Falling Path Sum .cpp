@@ -115,7 +115,7 @@ public:
 
 
 /*============================================================================================================
-    SOLUTION 3 - TABULATION - (using solution - 2)
+    SOLUTION 3 - TABULATION - (using solution - 2) -- see SOLUTION 6
 ============================================================================================================*/
 
 class Solution {
@@ -167,7 +167,7 @@ public:
 
 
 /*============================================================================================================
-    SOLUTION 4 - TABULATION (space optimised)
+    SOLUTION 4 - TABULATION (space optimised) -- see SOLUTION 6
 ============================================================================================================*/
 
 class Solution {
@@ -223,7 +223,7 @@ public:
 
 
 /*============================================================================================================
-    SOLUTION 5 - TABULATION (space optimised)
+    SOLUTION 5 - TABULATION (space optimised) -- see SOLUTION 6
 
     why the following is also working
 
@@ -291,3 +291,59 @@ public:
 };
 
 
+/*============================================================================================================
+    SOLUTION 6 - TABULATION (space optimised)
+
+    'no need of making src again and agin and calling for each of them'
+    'since you are already filling all the cells in (i==0)' so all are the srcs
+    do a dry run for better understanding
+============================================================================================================*/
+
+class Solution {
+int getMinUtil(int n, int m, vector<vector<int>> &matrix) {
+
+    vector<int> prev(m);
+
+    // sc -> src col
+    // top to bottom -- src to dest
+    for (int j = 0; j < m; j++)
+        prev[j] = matrix[0][j];
+
+    for (int i = 1; i < n; i++) {
+        vector<int> curr(m);
+        for (int j = 0; j < m; j++) {
+
+            int up            = prev[j];
+            int leftDiagonal  = (j-1 >= 0) ? prev[j-1] : 1e9;
+            int rightDiagonal = (j+1 <  m) ? prev[j+1] : 1e9;
+
+            curr[j] = matrix[i][j] + min(up, min(leftDiagonal, rightDiagonal));
+        }
+        prev = curr;
+    }
+
+    int mini = prev[0];
+    for (int j = 0; j < m; j++)
+        mini = min(prev[j], mini);
+
+    return mini;
+    
+}
+
+public:
+    int minFallingPathSum(vector<vector<int>>& matrix) {
+    int n = matrix.size();
+    int m = matrix[0].size();
+
+    int mini = INT_MAX;
+
+    // for (int j = 0; j < m; j++) {
+    //     int ans = getMinUtil(j, n, m, matrix);
+    //     mini = min(mini, ans);
+    // }
+
+    // return mini;
+
+    return getMinUtil( n, m, matrix);
+    }
+};
