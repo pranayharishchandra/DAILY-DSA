@@ -13,9 +13,11 @@ Reason: We are using a recursion stack space(O(N)) and an array (again O(N)). Th
 int solve(int ind, vector<int>& height, vector<int>& dp){
     if(ind==0) return 0;
     if(dp[ind]!=-1) return dp[ind];
-    int jumpTwo = INT_MAX;
+
     int jumpOne= solve(ind-1, height,dp)+ abs(height[ind]-height[ind-1]);
-    if(ind>1)
+
+    int jumpTwo = INT_MAX;
+    if(ind>=2)
         jumpTwo = solve(ind-2, height,dp)+ abs(height[ind]-height[ind-2]);
     
     return dp[ind]=min(jumpOne, jumpTwo);
@@ -38,11 +40,14 @@ Reason: We are using an external array of size ‘n+1’.
 int f(vector<int> height) {
   int n=height.size();
   vector<int> dp(n,-1);
+
+  // energy required to go from the stair on which we are to which we are is 0
   dp[0]=0;
+
   for(int ind=1;ind<n;ind++){
       int jumpTwo = INT_MAX;
         int jumpOne= dp[ind-1] + abs(height[ind]-height[ind-1]);
-        if(ind>1)
+        if(ind>=2)
             jumpTwo = dp[ind-2] + abs(height[ind]-height[ind-2]);
     
         dp[ind]=min(jumpOne, jumpTwo);
@@ -64,8 +69,9 @@ int f(vector<int> height) {
   int prev2=0;
   for(int i=1;i<n;i++){
       
-      int jumpTwo = INT_MAX;
       int jumpOne= prev + abs(height[i]-height[i-1]);
+
+      int jumpTwo = INT_MAX;
       if(i>1)
         jumpTwo = prev2 + abs(height[i]-height[i-2]);
     
