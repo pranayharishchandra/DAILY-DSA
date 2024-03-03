@@ -42,7 +42,7 @@ int f(int n){
 
 
 
-/**============= Tabulation =================
+/**============= Tabulation (space opt )=================
 Time Complexity: O(N)
 Reason: We are running a simple iterative loop
 
