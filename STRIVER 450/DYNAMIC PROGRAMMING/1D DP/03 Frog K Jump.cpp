@@ -15,6 +15,18 @@ int solve(int ind, vector<int>& height, vector<int>& dp){
     return dp[ind]=min(jumpOne, jumpTwo);
 }
 */
+
+/**============= memoization =================
+Time Complexity: O(N *K)
+Reason: The overlapping subproblems will return the answer in constant time. 
+Therefore the total number of new subproblems we solve is ‘n’. 
+At every new subproblem, we are running another loop for K times. 
+Hence total time complexity is O(N * K).
+
+Space Complexity: O(N)
+Reason: We are using a recursion stack space(O(N)) and an array (again O(N)). 
+Therefore total space complexity will be O(N) + O(N) ≈ O(N)
+*/
 int solveUtil(int ind, vector<int>& height, vector<int>& dp, int k) {
 
     if (ind == 0) return 0; // base case
