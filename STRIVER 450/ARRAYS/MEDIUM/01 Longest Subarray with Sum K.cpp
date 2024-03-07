@@ -166,7 +166,7 @@ int getLongestSubarray(vector<int>& arr, int k){
 	int maxi = 0; // stores largest length of subarray found till now
 
   int right = 0, left = 0;
-  int sum = 0; // sum from left to right
+  int sum = arr[0]; // sum from left to right
 	
   while (right < n && left < n) {
 
