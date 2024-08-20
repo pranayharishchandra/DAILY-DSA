@@ -1,1 +1,1 @@
-Find the new codes is in coding Odyssey repository
+Find the new codes is in coding Odyssey repository.
